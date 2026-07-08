@@ -23,10 +23,11 @@ def scan_repository(path: str):
             file_name = os.path.basename(file_path)
             file_extension = os.path.splitext(file_path)[1]
             file_size = os.path.getsize(file_path)
+            relative_path = os.path.relpath(file_path,path)
 
             files.append({
                 "name": file_name,
-                "path": file_path,
+                "path": relative_path,
                 "extension": file_extension,
                 "size": file_size
             })
