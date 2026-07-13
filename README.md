@@ -22,7 +22,6 @@
 - [Current API](#-current-api)
 - [Current Capabilities](#-current-capabilities)
 - [Upcoming Features](#-upcoming-features)
-- [License](#-license)
 
 ---
 
