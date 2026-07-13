@@ -1,8 +1,8 @@
 <div align="center">
 
-# AI Codebase Assistant
+# 🧠 AI Codebase Assistant
 
-**An AI-powered backend that scans local and GitHub repositories to collect file metadata — the foundation for smarter, AI-driven code analysis.**
+**An AI-powered backend that scans local and GitHub repositories, extracts code and repository metadata, and prepares repositories for intelligent AI-powered code analysis.**
 
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=flat-square&logo=fastapi)
@@ -14,40 +14,48 @@
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Current API](#current-api)
-- [Upcoming Features](#upcoming-features)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Current API](#-current-api)
+- [Current Capabilities](#-current-capabilities)
+- [Upcoming Features](#-upcoming-features)
+- [License](#-license)
 
 ---
 
-## Features
+## ✨ Features
 
 | | |
 |---|---|
 | ✅ | Scan local repositories |
 | ✅ | Clone and scan public GitHub repositories |
 | ✅ | Ignore unnecessary directories (`.git`, `.venv`, `venv`, `node_modules`, `__pycache__`) |
-| ✅ | Extract file metadata — name, relative path, extension, size |
+| ✅ | Extract file metadata (name, path, extension, size) |
+| ✅ | Read supported source code and text file contents |
+| ✅ | Repository analytics (total files, total size, extension statistics) |
+| ✅ | Detect largest and smallest files |
+| ✅ | Calculate average file size |
+| ✅ | Identify the most common file extension |
+| ✅ | Generate repository summary (README, LICENSE, .gitignore, primary language) |
 | ✅ | REST API built with FastAPI |
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |-------|------------|
 | Language | Python |
-| API Framework | FastAPI |
-| Server | Uvicorn |
+| Backend | FastAPI |
+| ASGI Server | Uvicorn |
 | Version Control | Git |
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -58,50 +66,80 @@
 
 ```bash
 git clone https://github.com/sindhujasankaramoorthy/AI-Codebase-Assistant
-cd ai-codebase-assistant
+cd AI-Codebase-Assistant/backend
 pip install -r requirements.txt
 ```
 
 ### Run the Server
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
-The API will be available at `http://127.0.0.1:8000`.
+The API will be available at:
+
+```
+http://127.0.0.1:8000
+```
 
 ---
 
-## Current API
+## 📡 Current API
 
 ### Scan a GitHub Repository
 
-`GET /scan-github`
+**`GET`** `/scan-github`
 
-**Query Parameters**
+#### Query Parameter
 
-| Parameter | Type   | Required | Description                        |
-|-----------|--------|----------|-------------------------------------|
-| url       | string | Yes      | The GitHub repository URL to scan   |
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `url` | string | Yes | Public GitHub repository URL |
 
-**Example Request**
+#### Example Request
 
 ```
 http://127.0.0.1:8000/scan-github?url=https://github.com/octocat/Hello-World.git
 ```
 
-**Example Response**
+#### Example Response
 
 ```json
 {
-  "repository": "https://github.com/octocat/Hello-World.git",
-  "file_count": 3,
+  "repository_url": "https://github.com/octocat/Hello-World.git",
+  "total_files": 1,
+  "total_size": 14,
+  "extension_count": {
+    "": 1
+  },
+  "largest_file": {
+    "name": "README",
+    "path": "README",
+    "size": 14
+  },
+  "smallest_file": {
+    "name": "README",
+    "path": "README",
+    "size": 14
+  },
+  "average_file_size": 14,
+  "most_common_extension": {
+    "extension": "",
+    "count": 1
+  },
+  "summary": {
+    "has_readme": true,
+    "has_license": false,
+    "has_gitignore": false,
+    "main_language": "Unknown"
+  },
   "files": [
     {
-      "name": "README.md",
-      "path": "README.md",
-      "extension": ".md",
-      "size": 2048
+      "name": "README",
+      "path": "README",
+      "extension": "",
+      "size": 14,
+      "content": null
     }
   ]
 }
@@ -109,10 +147,30 @@ http://127.0.0.1:8000/scan-github?url=https://github.com/octocat/Hello-World.git
 
 ---
 
-## Upcoming Features
+## ⚙️ Current Capabilities
 
-- [ ] Read file contents
-- [ ] Repository statistics
-- [ ] AI-powered code analysis
+The backend can currently:
+
+- Clone public GitHub repositories
+- Scan repository files recursively
+- Ignore unnecessary directories
+- Read supported source code files
+- Extract metadata from every file
+- Generate repository statistics
+- Produce a high-level repository summary
+
+> This forms the foundation for **Retrieval-Augmented Generation (RAG)** and AI-powered code understanding.
+
+---
+
+## 🔮 Upcoming Features
+
+- [ ] Code chunking
+- [ ] Embedding generation
+- [ ] Vector database integration (FAISS)
+- [ ] Semantic code search
+- [ ] AI-powered repository chat
 - [ ] Code summarization
-- [ ] Question answering over repositories
+- [ ] Repository question answering
+- [ ] Frontend interface
+- [ ] Deployment
