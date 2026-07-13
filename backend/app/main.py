@@ -16,10 +16,9 @@ def scan():
 @app.get("/scan-github")
 def scan_github(url: str = Query(...)):
     repository_path = clone_repository(url)
-    files = scan_repository(repository_path)
+    repository_data = scan_repository(repository_path)
 
     return {
         "repository_url": url,
-        "total_files": len(files),
-        "files": files
+        **repository_data
     }
